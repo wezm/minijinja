@@ -81,6 +81,11 @@ impl<'a> Output<'a> {
     #[inline(always)]
     #[deprecated(since = "0.35.0", note = "MiniJinja 1.0 no longer supports this")]
     pub fn is_discarding(&self) -> bool {
+        self._is_discarding()
+    }
+
+    #[inline(always)]
+    pub(crate) fn _is_discarding(&self) -> bool {
         matches!(self.capture_stack.last(), Some(None))
     }
 

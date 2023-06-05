@@ -495,7 +495,7 @@ impl<'env> Vm<'env> {
                 }
                 #[cfg(feature = "multi_template")]
                 Instruction::CallBlock(name) => {
-                    if parent_instructions.is_none() && !out.is_discarding() {
+                    if parent_instructions.is_none() && !out._is_discarding() {
                         self.call_block(name, state, out)?;
                     }
                 }
