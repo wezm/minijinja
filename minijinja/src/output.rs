@@ -79,6 +79,7 @@ impl<'a> Output<'a> {
 
     /// Returns `true` if the output is discarding.
     #[inline(always)]
+    #[deprecated(since = "0.35.0", note = "MiniJinja 1.0 no longer supports this")]
     pub fn is_discarding(&self) -> bool {
         matches!(self.capture_stack.last(), Some(None))
     }
