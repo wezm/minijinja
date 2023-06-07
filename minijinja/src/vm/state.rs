@@ -110,6 +110,7 @@ impl<'vm, 'env> State<'vm, 'env> {
     /// Returns the name of the item (filter, function, test, method) currently
     /// being called.
     #[inline(always)]
+    #[deprecated(since = "0.35.0", note = "MiniJinja 1.0 no longer supports this")]
     pub fn current_call(&self) -> Option<&str> {
         self.current_call
     }
