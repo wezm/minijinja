@@ -36,7 +36,7 @@ All notable changes to MiniJinja are documented here.
 
 - `Kwargs::from_args` was removed as API.
 
-    Before:
+    Old:
 
     ```rust
     // just split
@@ -47,7 +47,7 @@ All notable changes to MiniJinja are documented here.
     let (a, b): (i32, i32) = from_args(args)?;
     ```
 
-    After:
+    New:
 
     ```rust
     // just split
@@ -60,13 +60,13 @@ All notable changes to MiniJinja are documented here.
 - `Template::render_block` and `Template::render_block_to_write` were
   replaced with the API of the same name on the `Module`.
 
-    Before:
+    Old:
 
     ```rust
     let rv = tmpl.render_block("name", ctx)?;
     ```
 
-    After:
+    New:
 
     ```rust
     let rv = tmpl.eval_to_module(ctx)?.render_block("name")?;
@@ -84,7 +84,7 @@ All notable changes to MiniJinja are documented here.
   new `loader` feature which adds the `add_template_owned` and `set_loader`
   APIs.
 
-    Before:
+    Old:
 
     ```rust
     let mut source = Source::with_loader(|name| ...);
@@ -93,12 +93,28 @@ All notable changes to MiniJinja are documented here.
     env.set_source(source);
     ```
 
-    After:
+    New:
 
     ```rust
     let mut env = Environment::new();
     env.set_loader(|name| ...);
     env.add_template_owned("foo", "...").unwrap();
+    ```
+
+    The replacement for `Source::from_path` is `path_loader`:
+
+    Old:
+
+    ```rust
+    let mut env = Environment::new();
+    env.set_source(Source::from_path("templates"));
+    ```
+
+    New:
+
+    ```rust
+    let mut env = Environment::new();
+    env.set_loader(path_loader("templates"));
     ```
 
 ## 0.34.0
