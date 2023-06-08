@@ -34,51 +34,6 @@ All notable changes to MiniJinja are documented here.
 
 ### Breaking Changes
 
-- `Kwargs::from_args` was removed as API.
-
-    Old:
-
-    ```rust
-    // just split
-    let (args, kwargs) = Kwargs::from_args(values);
-
-    // split and parse
-    let (args, kwargs) = Kwargs::from_args(values);
-    let (a, b): (i32, i32) = from_args(args)?;
-    ```
-
-    New:
-
-    ```rust
-    // just split
-    let (args, kwargs): (&[Value], Kwargs) = from_args(values)?;
-
-    // split and parse
-    let (a, b, kwargs): (i32, i32, Kwargs) = from_args(values)?;
-    ```
-
-- `Template::render_block` and `Template::render_block_to_write` were
-  replaced with the API of the same name on the `Module`.
-
-    Old:
-
-    ```rust
-    let rv = tmpl.render_block("name", ctx)?;
-    ```
-
-    New:
-
-    ```rust
-    let rv = tmpl.eval_to_module(ctx)?.render_block("name")?;
-    ```
-
-- `Output::is_discarding` was removed without replacement.  This is
-  an implementation detail and was incorrectly exposed.
-
-- `State::current_call` was removed without replacement.  This information
-  was unreliably maintained in the engine and caused issues with recursive
-  calls.
-
 - `Environment::source`, `Environment::set_source` and the `Source` type
   together with the `source` feature were removed.  The replacement is the
   new `loader` feature which adds the `add_template_owned` and `set_loader`
@@ -116,6 +71,51 @@ All notable changes to MiniJinja are documented here.
     let mut env = Environment::new();
     env.set_loader(path_loader("templates"));
     ```
+
+- `Template::render_block` and `Template::render_block_to_write` were
+  replaced with the API of the same name on the `Module`.
+
+    Old:
+
+    ```rust
+    let rv = tmpl.render_block("name", ctx)?;
+    ```
+
+    New:
+
+    ```rust
+    let rv = tmpl.eval_to_module(ctx)?.render_block("name")?;
+    ```
+
+- `Kwargs::from_args` was removed as API.
+
+    Old:
+
+    ```rust
+    // just split
+    let (args, kwargs) = Kwargs::from_args(values);
+
+    // split and parse
+    let (args, kwargs) = Kwargs::from_args(values);
+    let (a, b): (i32, i32) = from_args(args)?;
+    ```
+
+    New:
+
+    ```rust
+    // just split
+    let (args, kwargs): (&[Value], Kwargs) = from_args(values)?;
+
+    // split and parse
+    let (a, b, kwargs): (i32, i32, Kwargs) = from_args(values)?;
+    ```
+
+- `Output::is_discarding` was removed without replacement.  This is
+  an implementation detail and was incorrectly exposed.
+
+- `State::current_call` was removed without replacement.  This information
+  was unreliably maintained in the engine and caused issues with recursive
+  calls.
 
 ## 0.34.0
 
