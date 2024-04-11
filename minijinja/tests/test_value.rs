@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet, LinkedList, VecDeque};
+use std::collections::BTreeMap;
 use std::sync::Arc;
 
 use insta::assert_snapshot;
@@ -799,6 +799,8 @@ fn test_object_vec() {
 #[test]
 #[cfg(feature = "std_collections")]
 fn test_object_vec_deque() {
+    use std::collections::VecDeque;
+
     let value = Value::from(VecDeque::from([1i32, 2, 3, 4]));
     assert_eq!(
         value.downcast_object_ref::<VecDeque<i32>>(),
@@ -820,6 +822,8 @@ fn test_object_vec_deque() {
 #[test]
 #[cfg(feature = "std_collections")]
 fn test_object_linked_list() {
+    use std::collections::LinkedList;
+
     let value = Value::from(LinkedList::from([1i32, 2, 3, 4]));
     assert_eq!(
         value.downcast_object_ref::<LinkedList<i32>>(),
@@ -837,6 +841,8 @@ fn test_object_linked_list() {
 #[test]
 #[cfg(feature = "std_collections")]
 fn test_object_hash_set() {
+    use std::collections::HashSet;
+
     let value = Value::from(HashSet::from([1i32, 2, 3, 4]));
     assert_eq!(
         value.downcast_object_ref::<HashSet<i32>>(),
@@ -851,6 +857,8 @@ fn test_object_hash_set() {
 #[test]
 #[cfg(feature = "std_collections")]
 fn test_object_btree_set() {
+    use std::collections::BTreeSet;
+
     let value = Value::from(BTreeSet::from([1i32, 2, 3, 4]));
     assert_eq!(
         value.downcast_object_ref::<BTreeSet<i32>>(),
@@ -868,6 +876,8 @@ fn test_object_btree_set() {
 #[test]
 #[cfg(feature = "std_collections")]
 fn test_object_hash_map() {
+    use std::collections::HashMap;
+
     let value = Value::from(HashMap::from_iter([("foo", 1i32), ("bar", 2)]));
     assert_eq!(
         value.downcast_object_ref::<HashMap<Arc<str>, i32>>(),
